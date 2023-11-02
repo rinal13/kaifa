@@ -323,7 +323,7 @@ class Decrypt:
                 self.obis[obis_code] = octet
                 g_log.debug("OCTET: {}, {}".format(octet_len, octet))
 
-     def get_act_power_pos_kw(self):
+    def get_act_power_pos_kw(self):
         if Obis.RealEnergyIn in self.obis:
             return self.obis[Obis.RealPowerIn] / 1000
         else:

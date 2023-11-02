@@ -482,6 +482,9 @@ while True:
     dec = Decrypt(g_supplier, frame1, frame2, g_cfg.get_key_hex_string())
     dec.parse_all()
 
+    g_log.info("1.0.1.7.0.255: {}".format(str(dec.get_act_power_pos_kw())))
+    g_log.info("1.0.2.7.0.255: {}".format(str(dec.get_act_power_neg_kw())))
+    
     g_log.info("1.8.0: {}".format(str(dec.get_act_energy_pos_kwh())))
     g_log.info("2.8.0: {}".format(str(dec.get_act_energy_neg_kwh())))
 

@@ -323,6 +323,18 @@ class Decrypt:
                 self.obis[obis_code] = octet
                 g_log.debug("OCTET: {}, {}".format(octet_len, octet))
 
+     def get_act_power_pos_kw(self):
+        if Obis.RealEnergyIn in self.obis:
+            return self.obis[Obis.RealPowerIn] / 1000
+        else:
+            return None
+            
+    def get_act_power_neg_kw(self):
+        if Obis.RealEnergyIn in self.obis:
+            return self.obis[Obis.RealPowerOut] / 1000
+        else:
+            return None
+            
     def get_act_energy_pos_kwh(self):
         if Obis.RealEnergyIn in self.obis:
             return self.obis[Obis.RealEnergyIn] / 1000
@@ -484,8 +496,13 @@ while True:
 
     # export mqtt
     if g_cfg.get_export_format() == 'MQTT':
+        
+        mqtt_pub_ret = mqtt_client.publish("{}/RealPowerIn".format(g_cfg.get_export_mqtt_basetopic()), dec.get_act_power_pos_kw())
+        g_log.debug("MQTT: Publish message: rc: {} mid: {}".format(mqtt_pub_ret[0], mqtt_pub_ret[1]))
+        mqtt_pub_ret = mqtt_client.publish("{}/RealPowerOut".format(g_cfg.get_export_mqtt_basetopic()), dec.get_act_power_neg_kw())
+        g_log.debug("MQTT: Publish message: rc: {} mid: {}".format(mqtt_pub_ret[0], mqtt_pub_ret[1]))
+        
         mqtt_pub_ret = mqtt_client.publish("{}/RealEnergyIn_S".format(g_cfg.get_export_mqtt_basetopic()), dec.get_act_energy_pos_kwh())
         g_log.debug("MQTT: Publish message: rc: {} mid: {}".format(mqtt_pub_ret[0], mqtt_pub_ret[1]))
         mqtt_pub_ret = mqtt_client.publish("{}/RealEnergyOut_S".format(g_cfg.get_export_mqtt_basetopic()), dec.get_act_energy_neg_kwh())
         g_log.debug("MQTT: Publish message: rc: {} mid: {}".format(mqtt_pub_ret[0], mqtt_pub_ret[1]))
-

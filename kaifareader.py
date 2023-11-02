@@ -210,8 +210,8 @@ class Obis:
     CurrentL1 = to_bytes("1.0.31.7.0.255")
     CurrentL2 = to_bytes("1.0.51.7.0.255")
     CurrentL3 = to_bytes("1.0.71.7.0.255")
-    RealPowerIn = to_bytes("1.0.1.7.0.255")
-    RealPowerOut = to_bytes("1.0.2.7.0.255")
+    RealPowerIn = '1.0.1.7.0.255'
+    RealPowerOut = '1.0.2.7.0.255'
     RealEnergyIn = to_bytes("1.0.1.8.0.255")
     RealEnergyIn_S = '1.8.0'   # String of Positive active energy (A+) total [Wh] (needed for export)
     RealEnergyOut = to_bytes("1.0.2.8.0.255")
